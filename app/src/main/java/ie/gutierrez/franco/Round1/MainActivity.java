@@ -55,7 +55,7 @@ public class MainActivity extends ActionBarActivity {
 
         // Creating volley request obj
         JsonArrayRequest hotelReq = new JsonArrayRequest(url,
-                new Response.Listener<JSONArray>() {
+                new Response.Listener<JSONArray>() {//JSON passed should be a JSONArray not a JSONObject. Fixed it from the server side
                     @Override
                     public void onResponse(JSONArray response) {
                         Log.d(TAG, response.toString());
@@ -73,7 +73,7 @@ public class MainActivity extends ActionBarActivity {
                                 hotelModel.setCache(obj.getString("cache"));
                                 hotelModel.setParams(obj.getString("params"));
                                 hotelModel.setPageTitle(obj.getString("pageTitle"));
-                                // Genre is json array
+                                // templateLastUpdate is json array
                                 JSONArray lastUpdateJsonArray = obj.getJSONArray("templateLastUpdated");
                                 ArrayList<String> templateLastUpdatedArray = new ArrayList<String>();
                                 for (int j = 0; j < lastUpdateJsonArray.length(); j++) {
@@ -81,7 +81,7 @@ public class MainActivity extends ActionBarActivity {
                                 }
                                 hotelModel.setTemplateLastUpdated(templateLastUpdatedArray);
 
-                                // adding hotelModel to movies array
+                                // adding hotelModel to hotelModelList array
                                 hotelModelList.add(hotelModel);
 
                             } catch (JSONException e) {
